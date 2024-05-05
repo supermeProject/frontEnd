@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import Paypal from "./Paypal";
+
 //import { loadDaumAddressAPI } from "../common/DaumAddressApi";
 import { useSelector } from "react-redux";
+import PaypalButton from "../../common/PaypalButton";
 
 const PaymentForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -352,8 +353,6 @@ const PaypalText = styled.div`
 const PaypalBtnWrapper = styled.div`
   width: 100%;
 `;
-
-const PaypalButton = styled(Paypal)``;
 
 const OrContainer = styled.div`
   position: relative;

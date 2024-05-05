@@ -8,7 +8,7 @@ import cartInfo, {
   increment,
   setInitialState,
 } from "../../store/modules/cartInfo";
-import Paypal from "../Payment/Paypal";
+import PaypalButton from "../../common/PaypalButton";
 
 const Layout = styled.div`
   position: fixed;
@@ -378,7 +378,7 @@ const CartOverlay = ({ isModalOpen, handleModal }) => {
               </BtnCheckout>
 
               <PaypalWrapper>
-                <Paypal />
+                <PaypalButton />
               </PaypalWrapper>
             </CheckoutWrapper>
           </>

@@ -54,6 +54,17 @@ const Input = styled.input`
   flex: 1 1 auto;
   border: 1px solid var(--color-lightgray);
   max-height: 36.8px;
+
+  color: ${(props) => (props.isSignUp ? "darkgrey" : "black")};
+  background-color: ${(props) => (props.isSignUp ? "white" : "darkgrey")};
+
+  &::placeholder {
+    color: ${(props) => !props.isSignUp && "rgba(0,0,0,1)"};
+  }
+
+  &:focus {
+    background-color: white;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -161,6 +172,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
             id="name"
             name="name"
             autoComplete="off"
+            isSignUp={isSignUp}
             value={form.name}
             onChange={handleInput}
             onBlur={() => handleNameValid(form.name)}
@@ -178,6 +190,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
             id="email"
             name="email"
             autoComplete="off"
+            isSignUp={isSignUp}
             value={form.email}
             onChange={handleInput}
             onBlur={() => handleEmailValid(form.email)}
@@ -196,6 +209,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
               id="password"
               name="password"
               autoComplete="off"
+              isSignUp={isSignUp}
               value={form.password}
               onChange={handleInput}
               onBlur={() => handlePasswordValid(form.password)}
@@ -215,6 +229,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
               id="passwordCheck"
               name="passwordCheck"
               autoComplete="off"
+              isSignUp={isSignUp}
               value={form.passwordCheck}
               onChange={handleInput}
               onBlur={() =>
@@ -238,6 +253,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
             id="phoneNumber"
             name="phoneNumber"
             autoComplete="off"
+            isSignUp={isSignUp}
             value={form.phoneNumber}
             onChange={handleInput}
             onBlur={() => handlePhoneNumberValid(form.phoneNumber)}
@@ -272,6 +288,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
             id="address"
             name="address"
             autoComplete="off"
+            isSignUp={isSignUp}
             value={form.address}
             onChange={handleInput}
             onBlur={() => handleAddr1Valid(form.address)}
@@ -293,6 +310,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
               id="city"
               name="city"
               autoComplete="off"
+              isSignUp={isSignUp}
               value={form.city}
               onChange={handleInput}
               onBlur={() => handleCityValid(form.city)}
@@ -311,6 +329,7 @@ const ProfileForm = ({ isSignUp, userData }) => {
               id="postcode"
               name="postcode"
               autoComplete="off"
+              isSignUp={isSignUp}
               value={form.postcode}
               onChange={handleInput}
               onBlur={() => handlePostcodeValid(form.postcode)}
