@@ -77,13 +77,13 @@ export default function useForm(
     if (allInputValid) {
       // 회원가입 진행
       const formData = new FormData();
-      const shaPassword = SHA256(form.password).toString();
+      //const shaPassword = SHA256(form.password).toString();
       //const fullAddress = form.address + form.detailAddress;
 
       Object.entries(form).forEach(([key, value]) =>
         formData.append(key, value)
       );
-      formData.set("password", shaPassword);
+      //formData.set("password", shaPassword);
       //formData.append("fullAddress", fullAddress);
 
       console.log("유효성검사 모두 통과 및 제출");

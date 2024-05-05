@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import DarkButton from "../common/DarkButton";
 import { Link } from "react-router-dom";
@@ -64,14 +64,48 @@ const SignUp = styled(Link)`
 `;
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // 로그인 성공 시 처리
+        console.log("Login successful");
+      } else {
+        // 로그인 실패 시 처리
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <Layout>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Title>LOGIN</Title>
 
         <InputCard>
           <InputTitle htmlFor="email">EMAIL</InputTitle>
-          <Input type="email" id="email" name="email" autoComplete="true" />
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            autoComplete="true"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </InputCard>
 
         <InputCard>
@@ -79,7 +113,14 @@ export default function Login() {
             <InputTitle htmlFor="password">PASSWORD</InputTitle>
             <InputTitle>Forgot?</InputTitle>
           </TitleWrapper>
-          <Input type="password" id="password" name="password" autoComplete="false" />
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            autoComplete="false"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </InputCard>
 
         <ButtonWrapper>

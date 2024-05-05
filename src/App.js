@@ -10,6 +10,8 @@ import AllProducts from "./pages/AllProducts";
 import ProductDetail from "./pages/ProductDetail";
 import Payment from "./pages/Payment";
 import Registration from "./pages/Registration";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import PaypalButton from "./common/PaypalButton";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +32,21 @@ const router = createBrowserRouter([
   },
 ]);
 
+//Paypal options
+const initialOptions = {
+  "client-id": `${process.env.REACT_APP_PAYPAL_CLIENT_ID}`,
+  currency: "USD",
+  intent: "capture",
+};
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <PayPalScriptProvider options={initialOptions}>
+      <RouterProvider router={router}>
+        <PaypalButton />
+      </RouterProvider>
+    </PayPalScriptProvider>
+  );
 }
 
 export default App;

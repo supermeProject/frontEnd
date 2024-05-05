@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
-import Select from "react-select";
-import styled from "styled-components";
+
+import styled, { css } from "styled-components";
 
 const DropdownBtn = styled.button`
   appearance: none;
@@ -10,17 +10,27 @@ const DropdownBtn = styled.button`
   flex: 1 1 auto;
   border: 1px solid var(--color-lightgray);
   max-height: 36.8px;
-  background-color: transparent;
   text-align: left;
   font-family: "Quicksand", sans-serif;
   cursor: pointer;
-  color: ${(props) => (props.selected ? "#000" : "#999")};
+  color: ${(props) =>
+    !props.isSignUp
+      ? "#000"
+      : props.isSignUp && props.selected
+      ? "#000"
+      : "#999"};
+  background-color: ${(props) => (props.isSignUp ? "white" : "darkgray")};
+  position: relative;
 `;
 
 const DropdownMenu = styled.div`
+  width: 100%;
   padding: 0.6rem 0.6rem 0 0.6rem;
   border: 1px solid var(--color-lightgray);
+  background-color: white;
   font-size: 0.85rem;
+  z-index: 1; /* 메뉴를 Address input 위로 렌더링 */
+  position: absolute;
 `;
 
 const Country = styled.div`
@@ -53,11 +63,14 @@ const CountryDropdown = ({ handleCountry, isSignUp, userData }) => {
       <DropdownBtn
         onClick={handleToggleDropdown}
         selected={selectedOption !== null}
+        isSignUp={isSignUp}
       >
         {isSignUp
           ? selectedOption
             ? selectedOption.label
             : "Select your country"
+          : selectedOption
+          ? selectedOption.label
           : userData.country}
       </DropdownBtn>
       {isOpen && (
