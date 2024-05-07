@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProfileForm from "../common/ProfileForm";
+import apiUrl from "../config";
 
 const Modify = () => {
   //initial data는 mockdata로 지워야함 (수정필요)
@@ -20,7 +21,7 @@ const Modify = () => {
 
   useEffect(() => {
     // API로부터 데이터 가져오기
-    fetch("")
+    fetch(`${apiUrl}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);

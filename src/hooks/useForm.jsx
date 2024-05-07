@@ -1,11 +1,13 @@
 import { SHA256 } from "crypto-js";
 import { useState } from "react";
+import apiUrl from "../config";
 
 export default function useForm(
   formValid,
   handleEveryValid,
   handleCountryValid,
-  handleGenderValid
+  handleGenderValid,
+  isSignUp
 ) {
   const [form, setForm] = useState({
     profileImage: "/assets/image/avatar.png",
@@ -77,21 +79,38 @@ export default function useForm(
     if (allInputValid) {
       // 회원가입 진행
       const formData = new FormData();
+
       //const shaPassword = SHA256(form.password).toString();
       //const fullAddress = form.address + form.detailAddress;
 
-      Object.entries(form).forEach(([key, value]) =>
-        formData.append(key, value)
-      );
+      Object.entries(form).forEach(([key, value]) => {
+        if (key === "profileImage" && value === "/assets/image/avatar.png") {
+          formData.append(key, ""); // 기본 이미지인 경우 빈 값으로 설정
+        } else {
+          formData.append(key, value);
+        }
+      });
       //formData.set("password", shaPassword);
       //formData.append("fullAddress", fullAddress);
 
       console.log("유효성검사 모두 통과 및 제출");
 
       //API 통신
-      fetch("", {
+      const headers = {
+        "Content-Type": "multipart/form-data", // 폼 데이터 형식 설정
+      };
+
+      if (!isSignUp) {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`; // my페이지이고, 토큰이 있는 경우 헤더에 추가
+        }
+      }
+
+      fetch(`${apiUrl}`, {
         method: "POST",
         body: formData,
+        headers: headers, // 동적으로 생성된 헤더 설정
       }).catch((error) => {
         console.error("API 통신 에러 발생:", error);
       });

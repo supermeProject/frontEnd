@@ -130,19 +130,8 @@ const ProfileForm = ({ isSignUp, userData }) => {
     handleEveryValid,
   } = useFormValidate();
 
-  const {
-    form,
-    handleInput,
-    handleSubmit,
-    handleProfileImage,
-    handleCountry,
-    handleGender,
-  } = useForm(
-    formValid,
-    handleEveryValid,
-    handleCountryValid,
-    handleGenderValid
-  );
+  const { form, handleInput, handleSubmit, handleProfileImage, handleGender } =
+    useForm(formValid, handleEveryValid, handleCountryValid, handleGenderValid);
   //const [isAddrModalOpen, setIsAddrModalOpen] = useState(false);
   const profileImageRef = useRef(null);
 

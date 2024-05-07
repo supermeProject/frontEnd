@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, Navigate } from "react-router-dom";
+import apiUrl from "../config";
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -122,12 +123,19 @@ const MyPage = () => {
     city: "London",
     postcode: "N2 7JJ",
     gender: "female",
+    deposit: 100,
   });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
     // API로부터 데이터 가져오기
-    fetch("")
+    fetch(`${apiUrl}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // 토큰을 요청 헤더에 추가
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);
@@ -184,6 +192,8 @@ const MyPage = () => {
             <AccountContent>{userData && userData.address}</AccountContent>
             <AccoutTitle>Gender</AccoutTitle>
             <AccountContent>{userData && userData.gender}</AccountContent>
+            <AccoutTitle>Deposit</AccoutTitle>
+            <AccountContent>USD {userData && userData.deposit}</AccountContent>
           </GridItem>
           <GridItem>
             <GridTitle>Order History</GridTitle>

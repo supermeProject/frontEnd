@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DarkButton from "../common/DarkButton";
 import { Link } from "react-router-dom";
+import apiUrl from "../config";
 
 const Layout = styled.main`
   display: flex;
@@ -71,7 +72,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${apiUrl}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,6 +82,9 @@ export default function Login() {
 
       if (response.ok) {
         // 로그인 성공 시 처리
+        const data = await response.json(); // 응답 데이터를 JSON 형태로 파싱
+        const token = data.access_token; // 토큰 값을 가져옴
+        localStorage.setItem("accessToken", token); // 토큰을 로컬 스토리지에 저장
         console.log("Login successful");
       } else {
         // 로그인 실패 시 처리
