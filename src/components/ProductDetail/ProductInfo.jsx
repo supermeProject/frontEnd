@@ -9,6 +9,7 @@ import Backdrop from "../../common/Backdrop";
 // JSON 데이터 import
 import data from "../db/date.json";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "../../config";
 
 const Container = styled.section`
   display: flex;
@@ -322,10 +323,8 @@ const ProductInfo = () => {
     };
 
     // 백엔드 서버의 장바구니 API 엔드포인트
-    const apiUrl = "http://example.com/api/cart";
-
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(`${apiUrl}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
